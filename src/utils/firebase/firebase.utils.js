@@ -6,7 +6,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
 } from 'firebase/auth'
 
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
@@ -30,7 +32,8 @@ googleProvider.setCustomParameters({
 
 export const auth = getAuth()
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
-export const signInWithGoogleRedirect = () =>signInWithRedirect(auth, googleProvider)
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore()
 
@@ -61,26 +64,29 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) {
-    throw new Error('Email and password are required');
+    throw new Error('Email and password are required')
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    return userCredential.user
   } catch (error) {
-    throw new Error('Error creating user: ' + error.message);
+    throw new Error('Error creating user: ' + error.message)
   }
 }
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) {
-    throw new Error('Email and password are required');
+    return
   }
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential.user;
-  } catch (error) {
-    throw new Error('Error signing user: ' + error.message);
-  }
+  return await signInWithEmailAndPassword(auth, email, password)
 }
+
+export const signOutUser = async () => await signOut(auth)
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback) 
