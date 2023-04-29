@@ -2,27 +2,49 @@ import styled from 'styled-components';
 
 export const ProductCartContainer = styled.div`
   width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  height: 350px;
   align-items: center;
   position: relative;
-  img {
-    width: 100%;
-    height: 95%;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+
+  img { 
     object-fit: cover;
-    margin-bottom: 5px;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
+
   button {
-    width: 80%;
     opacity: 0.7;
     position: absolute;
-    top: 255px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 14px;
+
+    &:hover {
+      opacity: 0.85;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
   }
+
   &:hover {
     img {
       opacity: 0.8;
+      
     }
     button {
       opacity: 0.85;
@@ -32,18 +54,20 @@ export const ProductCartContainer = styled.div`
 `;
 
 export const Footer = styled.div`
+  display: flex; 
   width: 100%;
-  height: 5%;
-  display: flex;
   justify-content: space-between;
-  font-size: 18px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 export const Name = styled.span`
-  width: 90%;
-  margin-bottom: 15px;
+  font-size: 16px;
 `;
 
 export const Price = styled.span`
-  width: 10%;
+  font-size: 16px;
+  font-weight: bold;
 `;
